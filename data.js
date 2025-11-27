@@ -7,7 +7,7 @@
 const CONFIG = {
     // Replace with your Google Sheet published CSV URL
     // To get this: File > Share > Publish to web > CSV format
-    SHEET_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRZ-1J_GFSzb3pwt_9WKd3T9AEVaKWtAzto9oA9J-KDEGZtjX9rwFokdbaPYPxWLCH2Q1H4zYi2WrCh/pub?gid=0&single=true&output=csv',
+    SHEET_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRs6zWG2ICe1yVN1Cs0_nNEhuvQLMPZ-Fdsanz6mvcgcqGb2Wm0y-1seBlM1M6gEBuWhbVGdcPBBuEs/pub?gid=1472062717&single=true&output=csv',
     
     // Cache duration in milliseconds (5 minutes)
     CACHE_DURATION: 5 * 60 * 1000
