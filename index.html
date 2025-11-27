@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic CSAT Dashboard</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Dynamic CSAT Dashboard</h2>
+            <div class="theme-toggle">
+                <span class="theme-toggle-label">Theme</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filters-left">
+                <div class="filter-field">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" />
+                </div>
+
+                <div class="filter-field">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" />
+                </div>
+
+                <div class="filter-field">
+                    <label for="productFilter">Product:</label>
+                    <select id="productFilter">
+                        <option value="">All</option>
+                        <option value="CFDs">CFDs</option>
+                        <option value="Futures">Futures</option>
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="agentFilter">Agent:</label>
+                    <select id="agentFilter">
+                        <option value="">All Agents</option>
+                        <option value="Khaled Mahmud Sultan">Khaled Mahmud Sultan</option>
+                        <option value="Tahseen Tayeb Kabir">Tahseen Tayeb Kabir</option>
+                        <option value="Syeda Jannat Ara">Syeda Jannat Ara</option>
+                        <option value="Mobasshira Islam">Mobasshira Islam</option>
+                        <option value="Prince Zakaria">Prince Zakaria</option>
+                        <option value="Saadman Rahman">Saadman Rahman</option>
+                        <option value="Rakibul Hasan Remon">Rakibul Hasan Remon</option>
+                        <option value="Rumanta Hossain Mow">Rumanta Hossain Mow</option>
+                        <option value="Raqibul Islam">Raqibul Islam</option>
+                        <option value="Md. Faisal Niyam">Md. Faisal Niyam</option>
+                        <option value="Md. Towsif Mehedi">Md. Towsif Mehedi</option>
+                        <option value="Abidur Rahman">Abidur Rahman</option>
+                        <option value="Meshak Abedin">Meshak Abedin</option>
+                        <option value="Tasmima Ahmed Mila">Tasmima Ahmed Mila</option>
+                        <option value="Md. Zunaid">Md. Zunaid</option>
+                        <option value="Ashraful Zannat">Ashraful Zannat</option>
+                        <option value="Raiyan Ramim">Raiyan Ramim</option>
+                        <option value="Al Farha Ulfat Pritha">Al Farha Ulfat Pritha</option>
+                        <option value="Sazid Hasan">Sazid Hasan</option>
+                        <option value="Showmik Gaznabi">Showmik Gaznabi</option>
+                        <option value="T.M. Waliullah Turjo">T.M. Waliullah Turjo</option>
+                        <option value="Al-Zawad Islam Sadman">Al-Zawad Islam Sadman</option>
+                        <option value="Lamira Ajrin">Lamira Ajrin</option>
+                        <option value="Maisha Mahzabeen">Maisha Mahzabeen</option>
+                        <option value="Md Riad Hasan Munsi">Md Riad Hasan Munsi</option>
+                        <option value="Shazid Hossain">Shazid Hossain</option>
+                        <option value="Nuaim Karim Chowdhury">Nuaim Karim Chowdhury</option>
+                        <option value="Shaklain Mohammed Sifath">Shaklain Mohammed Sifath</option>
+                        <option value="Samiul Sakib Rafin">Samiul Sakib Rafin</option>
+                        <option value="Nushrat Hasan">Nushrat Hasan</option>
+                        <option value="Md Farhan Taher Oishik">Md Farhan Taher Oishik</option>
+                        <option value="Madrish Moman Onin">Madrish Moman Onin</option>
+                        <option value="Rajeen Morshed Fida">Rajeen Morshed Fida</option>
+                        <option value="Elias Arman Bappi">Elias Arman Bappi</option>
+                        <option value="Prottoy Saha">Prottoy Saha</option>
+                        <option value="Md. Khalid Hasan">Md. Khalid Hasan</option>
+                        <option value="Asif Newaz Khan">Asif Newaz Khan</option>
+                        <option value="Afifa Islam Fiha">Afifa Islam Fiha</option>
+                        <option value="Md. Sadman">Md. Sadman</option>
+                        <option value="MD. NAYEEM HOSSAIN">MD. NAYEEM HOSSAIN</option>
+                        <option value="Rifa Shadia Islam Prova">Rifa Shadia Islam Prova</option>
+                        <option value="Pingkon Augustine Rozario">Pingkon Augustine Rozario</option>
+                        <option value="Sumic Maclean Gomes">Sumic Maclean Gomes</option>
+                        <option value="Sheikh Shahariar Shohag">Sheikh Shahariar Shohag</option>
+                        <option value="Md Sazzad Hossain">Md Sazzad Hossain</option>
+                        <option value="Dewan Md Rubayet Rafit">Dewan Md Rubayet Rafit</option>
+                        <option value="Mirza Moshiour Rahaman Shizan">Mirza Moshiour Rahaman Shizan</option>
+                        <option value="Sayema Nawshin Rahman Aroni">Sayema Nawshin Rahman Aroni</option>
+                        <option value="Samik Ahmed Eshti">Samik Ahmed Eshti</option>
+                        <option value="Rizny Azmy">Rizny Azmy</option>
+                        <option value="Marzahan Binte Sarker">Marzahan Binte Sarker</option>
+                        <option value="MD TANJIN UL HOQUE">MD TANJIN UL HOQUE</option>
+                        <option value="Sithil Waduge">Sithil Waduge</option>
+                        <option value="Kithmal Wickramasingha">Kithmal Wickramasingha</option>
+                        <option value="Jake Devadason">Jake Devadason</option>
+                        <option value="Seleena Leard">Seleena Leard</option>
+                        <option value="Mir Sazzad Hossain">Mir Sazzad Hossain</option>
+                        <option value="Sadman Islam Hridoy">Sadman Islam Hridoy</option>
+                        <option value="Galib Hasan Nizum">Galib Hasan Nizum</option>
+                        <option value="Momen Hossain">Momen Hossain</option>
+                        <option value="Nuhash Rose Dhrubo">Nuhash Rose Dhrubo</option>
+                        <option value="Pafsin Akter Prithy">Pafsin Akter Prithy</option>
+                        <option value="Raufur Rahman Rangan">Raufur Rahman Rangan</option>
+                        <option value="Sana Amin Kotwal">Sana Amin Kotwal</option>
+                        <option value="Asif Hasan Abir">Asif Hasan Abir</option>
+                        <option value="Sadman Sakib Ayon">Sadman Sakib Ayon</option>
+                        <option value="Nadia Muslim">Nadia Muslim</option>
+                        <option value="Shadrib Hasan Anik">Shadrib Hasan Anik</option>
+                        <option value="Md Kamrul Hasan">Md Kamrul Hasan</option>
+                        <option value="Mehedi Hasan Sany">Mehedi Hasan Sany</option>
+                        <option value="Maymona Ameen Kotwal Sidrah">Maymona Ameen Kotwal Sidrah</option>
+                        <option value="Zawad Zarir Pasha">Zawad Zarir Pasha</option>
+                        <option value="Tazwar Fardous">Tazwar Fardous</option>
+                        <option value="Nasif Ul Islam">Nasif Ul Islam</option>
+                        <option value="M I Fahim Alam">M I Fahim Alam</option>
+                        <option value="Faiyaz Muhtasim Ahmed">Faiyaz Muhtasim Ahmed</option>
+                        <option value="Jerin Tasneem Prova">Jerin Tasneem Prova</option>
+                        <option value="Mainuzzaman Tarek">Mainuzzaman Tarek</option>
+                        <option value="Nasrin Hossain Preya">Nasrin Hossain Preya</option>
+                        <option value="Md. Rakib Hossain">Md. Rakib Hossain</option>
+                        <option value="Sazzadul Haque Jony">Sazzadul Haque Jony</option>
+                        <option value="MD. M Z Mahiuddin Shameem">MD. M Z Mahiuddin Shameem</option>
+                        <option value="S M Sourav Sagor">S M Sourav Sagor</option>
+                        <option value="Shahriar Hossain Sajol">Shahriar Hossain Sajol</option>
+                        <option value="Turza Podder Joy">Turza Podder Joy</option>
+                        <option value="Manish Sarkar">Manish Sarkar</option>
+                        <option value="Abir Hasan Pial">Abir Hasan Pial</option>
+                        <option value="M. M Abir Ahmed Mugdho">M. M Abir Ahmed Mugdho</option>
+                        <option value="Izaz Ahmed Fuad">Izaz Ahmed Fuad</option>
+                    </select>
+                </div>
+
+                <div class="filter-field filter-field--wide">
+                    <label for="categoryFilter">Drilled-in Report:</label>
+                    <select id="categoryFilter" onchange="refreshCategoryChart()">
+                        <option value="">Select category…</option>
+                        <option value="KYC_Issue">KYC_Issue</option>
+                        <option value="Next Phase Button Missing">Next Phase Button Missing</option>
+                        <option value="Certificate Issue">Certificate Issue</option>
+                        <option value="Platform Change Request">Platform Change Request</option>
+                        <option value="Login_Issue">Login_Issue</option>
+                        <option value="Free Trial">Free Trial</option>
+                        <option value="Commission">Commission</option>
+                        <option value="SWAP">SWAP</option>
+                        <option value="Platform Issue">Platform Issue</option>
+                        <option value="Slippage">Slippage</option>
+                        <option value="Account Model switching issue">Account Model switching issue</option>
+                        <option value="Infinity Points issue">Infinity Points issue</option>
+                        <option value="Trade Issue">Trade Issue</option>
+                        <option value="Tech Issue">Tech Issue</option>
+                        <option value="Password issue">Password issue</option>
+                        <option value="Breach Issue">Breach Issue</option>
+                        <option value="Competition Issue">Competition Issue</option>
+                        <option value="Merging Issue">Merging Issue</option>
+                        <option value="Scale up issue">Scale up issue</option>
+                        <option value="Reset Issue">Reset Issue</option>
+                        <option value="Dashboard Related Issue">Dashboard Related Issue</option>
+                        <option value="Verdict from different team">Verdict from different team</option>
+                        <option value="Other Payment Issues">Other Payment Issues</option>
+                        <option value="Payout related issue">Payout related issue</option>
+                        <option value="Restriction Related Issue">Restriction Related Issue</option>
+                        <option value="Account Related Issue">Account Related Issue</option>
+                        <option value="Coupon Code related issue">Coupon Code related issue</option>
+                        <option value="Discount related issue">Discount related issue</option>
+                        <option value="Duplicate issue">Duplicate issue</option>
+                        <option value="Crypto Payment Isssue">Crypto Payment Isssue</option>
+                        <option value="Card Payment issue">Card Payment issue</option>
+                        <option value="Refund Related Issue">Refund Related Issue</option>
+                        <option value="Random Problems">Random Problems</option>
+                        <option value="Futures Related Issues">Futures Related Issues</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filters-right">
+                <button id="filterBtn" onclick="refreshDashboard()">Apply Filter</button>
+                <span id="statusMessage"></span>
+            </div>
+        </div>
+
+        <!-- KPI summary with PoP delta -->
+        <div class="kpi-row">
+            <!-- 1. CSAT Score (First) -->
+            <div class="kpi-card csat-score-card">
+                <div class="kpi-label">CSAT Score</div>
+                <div class="kpi-value" id="csatScoreValue">0%</div>
+                <div class="kpi-delta-wrapper">
+                    <div class="kpi-delta neutral" id="csatScoreDelta">
+                        <span class="arrow">—</span>
+                        <span class="delta-value">0.0%</span>
+                        <span class="delta-label">vs prev period</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Total CSAT Count -->
+            <div class="kpi-card">
+                <div class="kpi-label">Total CSAT Count</div>
+                <div class="kpi-value" id="totalCsatCount">0</div>
+                <div class="kpi-delta-wrapper">
+                    <div class="kpi-delta neutral" id="totalCsatDelta">
+                        <span class="arrow">—</span>
+                        <span class="delta-value">0%</span>
+                        <span class="delta-label">vs prev period</span>
+                    </div>
+                    <div class="kpi-delta-tooltip" id="totalCsatTooltip">
+                        <div class="tooltip-row">
+                            <span>Current Period:</span>
+                            <span id="totalCsatCurrent">0</span>
+                        </div>
+                        <div class="tooltip-row">
+                            <span>Previous Period:</span>
+                            <span id="totalCsatPrevious">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. High CSAT Count -->
+            <div class="kpi-card">
+                <div class="kpi-label">High CSAT Count</div>
+                <div class="kpi-value" id="highCsatCount">0</div>
+                <div class="kpi-delta-wrapper">
+                    <div class="kpi-delta neutral" id="highCsatDelta">
+                        <span class="arrow">—</span>
+                        <span class="delta-value">0%</span>
+                        <span class="delta-label">vs prev period</span>
+                    </div>
+                    <div class="kpi-delta-tooltip" id="highCsatTooltip">
+                        <div class="tooltip-row">
+                            <span>Current Period:</span>
+                            <span id="highCsatCurrent">0</span>
+                        </div>
+                        <div class="tooltip-row">
+                            <span>Previous Period:</span>
+                            <span id="highCsatPrevious">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Low CSAT Count -->
+            <div class="kpi-card">
+                <div class="kpi-label">Low CSAT Count</div>
+                <div class="kpi-value" id="lowCsatCount">0</div>
+                <div class="kpi-delta-wrapper">
+                    <div class="kpi-delta neutral" id="lowCsatDelta">
+                        <span class="arrow">—</span>
+                        <span class="delta-value">0%</span>
+                        <span class="delta-label">vs prev period</span>
+                    </div>
+                    <div class="kpi-delta-tooltip" id="lowCsatTooltip">
+                        <div class="tooltip-row">
+                            <span>Current Period:</span>
+                            <span id="lowCsatCurrent">0</span>
+                        </div>
+                        <div class="tooltip-row">
+                            <span>Previous Period:</span>
+                            <span id="lowCsatPrevious">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div id="csatTrendChart" class="chart">
+                <div class="placeholder">Waiting for data…</div>
+            </div>
+            <div id="topConcernsChart" class="chart">
+                <div class="placeholder">Waiting for data…</div>
+            </div>
+            <div id="categoryPieChart" class="chart">
+                <div class="placeholder">Select a category to see breakdown.</div>
+            </div>
+            <div id="lowRatingChart" class="chart">
+                <div class="placeholder">Waiting for data…</div>
+            </div>
+            <div id="csatFunnelChart" class="chart">
+                <div class="placeholder">Waiting for data…</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load scripts in order -->
+    <script src="js/utils.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/kpi.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

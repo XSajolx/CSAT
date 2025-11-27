@@ -1,0 +1,721 @@
+:root {
+    /* Night Mode (Default) */
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #ec4899;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --bg-main: #020617;
+    --bg-card: rgba(15, 23, 42, 0.96);
+    --bg-card-soft: rgba(15, 23, 42, 0.8);
+    --text-primary: #e5e7eb;
+    --text-secondary: #9ca3af;
+    --border-color: rgba(148, 163, 184, 0.28);
+    --bg-gradient-1: radial-gradient(circle at top left, #1e293b 0, #020617 45%);
+    --bg-gradient-2: radial-gradient(circle at bottom right, #4c1d95 0, #020617 55%);
+    --card-gradient: radial-gradient(circle at top left, #0b1120 0, #020617 55%);
+    --filter-gradient: radial-gradient(circle at top left, #111827 0%, #020617 55%);
+    --kpi-glow-1: rgba(129, 140, 248, 0.7);
+    --kpi-glow-2: rgba(34, 197, 94, 0.7);
+    --kpi-glow-3: rgba(248, 113, 113, 0.85);
+    --kpi-glow-4: rgba(251, 191, 36, 0.7);
+    --input-bg: rgba(15, 23, 42, 0.96);
+    --input-border: rgba(148, 163, 184, 0.35);
+    --scrollbar-track: #020617;
+    --scrollbar-thumb: #4b5563;
+    --chart-title-color: #e5e7eb;
+    --chart-axis-color: #9ca3af;
+    --chart-annotation-color: #e5e7eb;
+    --chart-gridline-color: rgba(156, 163, 175, 0.5);
+}
+
+/* Day Mode */
+body.day-mode {
+    --bg-main: #f1f5f9;
+    --bg-card: rgba(255, 255, 255, 0.96);
+    --bg-card-soft: rgba(255, 255, 255, 0.9);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: rgba(148, 163, 184, 0.4);
+    --bg-gradient-1: radial-gradient(circle at top left, #e2e8f0 0, #f1f5f9 45%);
+    --bg-gradient-2: radial-gradient(circle at bottom right, #ddd6fe 0, #f1f5f9 55%);
+    --card-gradient: radial-gradient(circle at top left, #ffffff 0, #f8fafc 55%);
+    --filter-gradient: radial-gradient(circle at top left, #ffffff 0%, #f1f5f9 55%);
+    --kpi-glow-1: rgba(99, 102, 241, 0.3);
+    --kpi-glow-2: rgba(34, 197, 94, 0.3);
+    --kpi-glow-3: rgba(239, 68, 68, 0.3);
+    --kpi-glow-4: rgba(245, 158, 11, 0.3);
+    --input-bg: #ffffff;
+    --input-border: rgba(148, 163, 184, 0.5);
+    --scrollbar-track: #e2e8f0;
+    --scrollbar-thumb: #94a3b8;
+    --chart-title-color: #1e293b;
+    --chart-axis-color: #64748b;
+    --chart-annotation-color: #1e293b;
+    --chart-gridline-color: rgba(100, 116, 139, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg-gradient-1), var(--bg-gradient-2);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 20px 24px 24px;
+    transition: background 0.4s ease, color 0.3s ease;
+}
+
+.container {
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+/* Header with Title and Toggle */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6366f1 0%, #ec4899 40%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.05em;
+}
+
+/* Day/Night Toggle Switch */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.theme-toggle-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 30px;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    overflow: hidden;
+}
+
+.toggle-slider::before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 3px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
+}
+
+/* Moon icon */
+.toggle-slider::after {
+    content: "🌙";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    transition: all 0.4s ease;
+    opacity: 1;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+    border-color: rgba(56, 189, 248, 0.5);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(28px);
+    background: linear-gradient(135deg, #fef08a 0%, #fbbf24 100%);
+    box-shadow: 0 2px 10px rgba(254, 240, 138, 0.6);
+}
+
+.toggle-switch input:checked + .toggle-slider::after {
+    content: "☀️";
+    right: auto;
+    left: 8px;
+}
+
+/* FILTER PANEL */
+.filters {
+    margin-bottom: 20px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    border: 1px solid var(--border-color);
+    background: var(--filter-gradient);
+    background-color: var(--bg-card-soft);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 22px;
+    align-items: flex-end;
+    transition: all 0.3s ease;
+}
+
+.filters-left {
+    flex: 1 1 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    gap: 12px 18px;
+    align-items: flex-end;
+}
+
+.filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-field--wide {
+    grid-column: 1 / -1;
+}
+
+.filters-right {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    min-width: 190px;
+}
+
+.filters label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.filters input[type="date"],
+.filters select {
+    padding: 8px 11px;
+    border-radius: 9px;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 13px;
+    outline: none;
+    min-height: 36px;
+    transition: all 0.25s ease;
+}
+
+.filters input[type="date"]:focus,
+.filters select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+    transform: translateY(-1px);
+}
+
+.filters input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+    transition: filter 0.3s ease;
+}
+
+body:not(.day-mode) .filters input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.filters button {
+    padding: 9px 26px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 40%, #22d3ee 100%);
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.2s;
+    white-space: nowrap;
+}
+
+.filters button:hover:not(:disabled) {
+    transform: translateY(-1.5px);
+    box-shadow: 0 18px 42px rgba(79, 70, 229, 0.5);
+}
+
+.filters button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 10px 24px rgba(79, 70, 229, 0.4);
+}
+
+.filters button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+#statusMessage {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 999px;
+    max-width: 260px;
+    text-align: right;
+    transition: all 0.2s ease;
+    min-height: 24px;
+}
+
+#statusMessage:empty {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+#statusMessage:not(:empty) {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+/* KPI CARDS */
+.kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.kpi-card {
+    position: relative;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: var(--card-gradient);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 55px rgba(15, 23, 42, 0.15);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.kpi-card::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 140px;
+    height: 140px;
+    border-radius: 999px;
+    background: radial-gradient(circle, var(--kpi-glow-4), transparent);
+    opacity: 0.22;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* 1st card: CSAT Score - Golden/Amber glow */
+.kpi-card:nth-child(1)::before {
+    background: radial-gradient(circle, var(--kpi-glow-4), transparent);
+}
+
+/* 2nd card: Total CSAT Count - Purple/Blue glow */
+.kpi-card:nth-child(2)::before {
+    background: radial-gradient(circle, var(--kpi-glow-1), transparent);
+}
+
+/* 3rd card: High CSAT Count - Green glow */
+.kpi-card:nth-child(3)::before {
+    background: radial-gradient(circle, var(--kpi-glow-2), transparent);
+}
+
+/* 4th card: Low CSAT Count - Red glow */
+.kpi-card:nth-child(4)::before {
+    background: radial-gradient(circle, var(--kpi-glow-3), transparent);
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 26px 70px rgba(15, 23, 42, 0.2);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+.kpi-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    transition: color 0.3s ease;
+}
+
+.kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #6366f1 0%, #ec4899 40%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Special styling for CSAT Score card */
+.kpi-card.csat-score-card .kpi-value {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fcd34d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.kpi-subtitle {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+/* Period-over-Period Delta Indicator */
+.kpi-delta {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    width: fit-content;
+    transition: all 0.3s ease;
+}
+
+.kpi-delta.positive {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.kpi-delta.negative {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.kpi-delta.neutral {
+    background: rgba(156, 163, 175, 0.15);
+    color: var(--text-secondary);
+    border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.kpi-delta .arrow {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.kpi-delta .delta-value {
+    font-weight: 700;
+}
+
+.kpi-delta .delta-label {
+    font-weight: 400;
+    opacity: 0.8;
+    font-size: 10px;
+}
+
+/* Tooltip for delta */
+.kpi-delta-wrapper {
+    position: relative;
+}
+
+.kpi-delta-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.kpi-delta-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 16px;
+    border: 6px solid transparent;
+    border-top-color: var(--border-color);
+}
+
+.kpi-delta-wrapper:hover .kpi-delta-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.kpi-delta-tooltip .tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 2px 0;
+}
+
+.kpi-delta-tooltip .tooltip-row span:first-child {
+    color: var(--text-secondary);
+}
+
+.kpi-delta-tooltip .tooltip-row span:last-child {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* CHART GRID */
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.chart:nth-child(1) {
+    grid-column: span 3;
+}
+
+.chart:nth-child(2) {
+    grid-column: span 2;
+}
+
+.chart:nth-child(3) {
+    grid-column: span 1;
+}
+
+.chart:nth-child(4) {
+    grid-column: span 2;
+}
+
+.chart:nth-child(5) {
+    grid-column: span 1;
+}
+
+.chart {
+    min-height: 340px;
+    border-radius: 18px;
+    padding: 12px 14px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 22px 65px rgba(15, 23, 42, 0.15);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.chart:hover {
+    transform: translateY(-2px);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 28px 80px rgba(15, 23, 42, 0.2);
+}
+
+/* Scrollable container for Negative Rating Countries chart */
+#lowRatingChart {
+    height: 340px;
+    overflow-y: auto;
+    align-items: stretch;
+}
+
+.placeholder {
+    color: var(--text-secondary);
+    font-size: 14px;
+    text-align: center;
+    padding: 16px;
+    transition: color 0.3s ease;
+}
+
+/* Loader */
+.loader {
+    border: 3px solid rgba(99, 102, 241, 0.15);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+@media (max-width: 1200px) {
+    .kpi-row {
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 1100px) {
+    .filters-left {
+        grid-template-columns: repeat(3, minmax(150px, 1fr));
+    }
+    .chart-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    body {
+        padding: 16px;
+    }
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .filters {
+        align-items: stretch;
+    }
+    .filters-left {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+    }
+    .filters-right {
+        width: 100%;
+        align-items: stretch;
+    }
+    .filters button,
+    #statusMessage {
+        width: 100%;
+        text-align: center;
+    }
+    .kpi-row {
+        grid-template-columns: repeat(2, minmax(160px, 1fr));
+    }
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .filters-left {
+        grid-template-columns: 1fr;
+    }
+    .kpi-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Google Charts Tooltip Styling */
+.google-visualization-tooltip {
+    background: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+    padding: 10px 14px !important;
+}
+
+.google-visualization-tooltip-item,
+.google-visualization-tooltip-item-list,
+.google-visualization-tooltip span,
+.google-visualization-tooltip div,
+.google-visualization-tooltip td,
+.google-visualization-tooltip tr,
+.google-visualization-tooltip th,
+.google-visualization-tooltip table {
+    color: #000000 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+/* Axis label hover tooltip */
+.goog-tooltip {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(99, 102, 241, 0.15) !important;
+    padding: 8px 12px !important;
+    color: #e5e7eb !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em !important;
+}
+
+body.day-mode .goog-tooltip {
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
+    color: #1e293b !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(99, 102, 241, 0.1) !important;
+}
+
+body.day-mode .goog-tooltip div,
+body.day-mode .goog-tooltip span {
+    color: #1e293b !important;
+}
+
+.goog-tooltip div,
+.goog-tooltip span {
+    color: #e5e7eb !important;
+    background: transparent !important;
+    border: none !important;
+}
